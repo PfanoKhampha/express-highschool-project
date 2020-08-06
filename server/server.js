@@ -12,18 +12,30 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/classes', (req, res) => {
-    var categories = ['id', 'slot', 'subject', 'group', 'classroom'];
+    var classes = ['id', 'slot', 'subject', 'group', 'classroom'];
     response.send(classes);
 }); 
 
 app.get('/api/teachers', (req, res) => {
-    var categories = ['id', 'name', 'email', 'password', 'classes'];
+    var teachers = ['id', 'name', 'email', 'password', 'classes'];
     response.send(teachers);
 }); 
 
 app.get('/api/learners', (req, res) => {
-    var categories = ['id', 'name', 'classes'];
+    var learners = ['id', 'name', 'classes'];
     response.send(learners);
 }); 
 
-
+app.get('/api/classes/:name', function (request, response) {
+    var classes = null;
+    for (var i = 0; i < data.classes.length; i++) {
+    if (data.classes[i].name === request.params.name) {
+    room = data.classes[i];
+    response.json(data.classes[i]);
+    }
+    }
+    if (classes == null) {
+    response.status(404).json("Sorry! No classes named '" +
+    request.params.name + "' found.");
+    }
+    });
